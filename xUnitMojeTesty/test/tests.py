@@ -18,19 +18,22 @@ class WasRun(TestCase):
         TestCase.__init__(self, name)
     def testMethod(self):
         self.wasRun = True
+        self.log = self.log + "testMethod "
     def setUp(self):
         self.wasRun = None
         self.wasSetUp = True
+        self.log = "setUp "
 
 class TestCaseTest(TestCase):
     def setUp(self):
+        pass
+#     def testRunning(self):
+#         self.test.run()
+#         assert(self.test.wasRun)
+    def testTemplateMethod(self):
         self.test = WasRun("testMethod")
-    def testRunning(self):
         self.test.run()
-        assert(self.test.wasRun)
-    def testSetUp(self):
-        self.test.run()
-        assert(self.test.wasSetUp)
+        assert("setUp testMethod " == self.test.log)
         
-TestCaseTest("testSetUp").run()
-TestCaseTest("testRunning").run()
+TestCaseTest("testTemplateMethod").run()
+# TestCaseTest("testRunning").run()
